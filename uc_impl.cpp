@@ -268,6 +268,9 @@ void hook_import(uc_engine *uc, uint64_t address, uint32_t size, ClusterManager*
 {
     uint64_t origin, origin_block;
     std::string name = unresolved_syms_rev[address];
+    if (name == "") {
+        name = resolved_syms_rev[address];
+    }
     EmuInstance* inst = cluster->get_running_inst();
     inst->regs_invalidate();
     
@@ -428,25 +431,26 @@ void hook_import(uc_engine *uc, uint64_t address, uint32_t size, ClusterManager*
         L2CValue* a = (L2CValue*)inst->uc_ptr_to_real_ptr(args[1]);
         L2CValue* b = (L2CValue*)inst->uc_ptr_to_real_ptr(args[2]);
         uint64_t funcptr = args[3];
+
+        uint64_t a_raw = (uint64_t) a->as_integer();
+        uint64_t b_raw = (uint64_t) b->as_integer();
         
-        uint64_t statusconcat = a->raw << 32 | b->raw;
+        uint64_t statusconcat = a_raw << 32 | b_raw;
         std::string kind;
         std::string func;
-        if ((a->raw + 1) >= 0x1A6)
-            kind = std::to_string(a->raw);
-        else
-            kind = fighter_status_kind[a->raw + 1];
-        if (b->raw >= 23)
-            func = std::to_string(b->raw);
-        else
-            func = status_func[b->raw];
 
-        std::string func_str = kind + "__" + func;
-        status_funcs[statusconcat] = func_str;
-        
-        printf("Instance Id %u: lua2cpp::L2CAgentBase::sv_set_status_func(0x%" PRIx64 ", 0x%" PRIx64 ", 0x%" PRIx64 ", 0x%" PRIx64 ") -> %s,%10" PRIx64 "\n", inst->get_id(), args[0], a->raw, b->raw, funcptr, func_str.c_str(), statusconcat);
-        
-        function_hashes[std::pair<uint64_t, uint64_t>(args[0], statusconcat)] = funcptr;
+        kind = const_value_table[a_raw].substr(strlen("FIGHTER_STATUS_KIND_"));
+        func = const_value_table[b_raw].substr(strlen("LUA_SCRIPT_STATUS_FUNC_"));
+
+        // if (kind == "ESCAPE_AIR")
+        {
+            std::string func_str = kind + "__" + func;
+            status_funcs[statusconcat] = func_str;
+            
+            printf("Instance Id %u: lua2cpp::L2CAgentBase::sv_set_status_func(0x%" PRIx64 ", 0x%" PRIx64 ", 0x%" PRIx64 ", 0x%" PRIx64 ") -> %s,%10" PRIx64 "\n", inst->get_id(), args[0], a_raw, b_raw, funcptr, func_str.c_str(), statusconcat);
+            
+            function_hashes[std::pair<uint64_t, uint64_t>(args[0], statusconcat)] = funcptr;
+        }
     }
     else if (name == "lib::utility::Variadic::get_format() const")
     {
@@ -521,8 +525,10 @@ void hook_import(uc_engine *uc, uint64_t address, uint32_t size, ClusterManager*
             *var = L2CValue((int)args[1]);
         else
             printf_error("Instance Id %u: Bad L2CValue init, %" PRIx64 ", %" PRIx64 "\n", inst->get_id(), args[0], origin);
-    
-        token.args.push_back((int)args[1]);
+
+        token.args.push_back(var->as_integer());
+        if (var->unk == 0xBABE)
+            token.arg_is_const_value.push_back(token.args.size()-1);
         //add_token = false;
         //purge_markers(token.pc);
     }

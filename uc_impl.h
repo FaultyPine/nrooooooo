@@ -2,7 +2,7 @@
 #define UC_IMPL_H
 
 #include <stdint.h>
-#include <unicorn/unicorn.h>
+#include "unicorn/include/unicorn/unicorn.h"
 #include <stdint.h>
 
 class ClusterManager;

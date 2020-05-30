@@ -11,6 +11,7 @@
 #include <chrono>
 #include <thread>
 #include <elf.h>
+#include "qemu_elf.h"
 #include <cxxabi.h>
 #include "crc32.h"
 #include "uc_inst.h"
@@ -27,6 +28,7 @@ int imports_size = 0;
 std::map<std::string, uint64_t> unresolved_syms;
 std::map<uint64_t, std::string> unresolved_syms_rev;
 std::map<std::string, uint64_t> resolved_syms;
+std::map<uint64_t, std::string> resolved_syms_rev;
 std::map<std::pair<uint64_t, uint64_t>, uint64_t> function_hashes;
 
 std::map<std::string, uint64_t> l2cagents;
@@ -120,6 +122,7 @@ void nro_assignsyms(void* base)
         else if (symtab[i].st_shndx && demangled)
         {
             resolved_syms[std::string(demangled)] = NRO + symtab[i].st_value;
+            resolved_syms_rev[NRO + symtab[i].st_value] = std::string(demangled);
         }
         else
         {
@@ -374,6 +377,7 @@ int main(int argc, char **argv, char **envp)
     }
 
     init_character_objects();
+    init_const_value_table();
     
     // Load in unhashed strings
     std::ifstream strings("hashstrings_lower.txt");    
@@ -406,7 +410,18 @@ int main(int argc, char **argv, char **envp)
     }
     
     logmask_unset(LOGMASK_DEBUG | LOGMASK_INFO);
-    //logmask_set(LOGMASK_VERBOSE);
+    // logmask_set(LOGMASK_VERBOSE);
+
+    uint32_t babe_indices[0x43ec];
+    for (size_t i = 0; i < 0x43ec; i++) {
+        babe_indices[i] = i | 0xBABE0000;
+    }
+
+    if (unresolved_syms["lua2cpp::L2CAgentGeneratedBase::const_value_table__"])
+        memcpy(cluster.uc_ptr_to_real_ptr(unresolved_syms["lua2cpp::L2CAgentGeneratedBase::const_value_table__"]), babe_indices, sizeof(babe_indices));
+    else
+        memcpy(cluster.uc_ptr_to_real_ptr(resolved_syms["lua2cpp::L2CAgentGeneratedBase::const_value_table__"]), babe_indices, sizeof(babe_indices));
+
     for (auto& agent : agents)
     {
         for (auto& object : character_objects[character])
@@ -417,28 +432,68 @@ int main(int argc, char **argv, char **envp)
             std::string args = "(phx::Hash40, app::BattleObject*, app::BattleObjectModuleAccessor*, lua_State*)";
             
             x0 = hash40(hashstr.c_str(), hashstr.length()); // Hash40
+            uint64_t output;
+            void* l2c_fighter;
+            if (agent == "status_script" && character == "common") {
+                cluster.add_import_hook(resolved_syms["lua2cpp::L2CAgentBase::sv_set_status_func(lib::L2CValue const&, lib::L2CValue const&, void*)"]);
+                cluster.add_import_hook(resolved_syms["lua2cpp::L2CAgentBase::sv_copy_status_func(lib::L2CValue const&, lib::L2CValue const&, lib::L2CValue const&)"]);
+    
+                func = "lua2cpp::L2CFighterCommon::sub_set_fighter_common_table";
+                args = "()";
+
+                x0 = cluster.heap_alloc(0x1000);
+                // NOP random member funcs
+                uint64_t to_nop[8] = {
+                    0x1002d186c, 0x1002d1870, 0x1002d1874, 0x1002d1878,
+                    0x1002d18bc, 0x1002d18c0, 0x1002d18c4, 0x1002d18c8,
+                };
+                uint32_t ret_asm = INSTR_RET;
+                for (auto nop_addr : to_nop) {
+                    uc_mem_write(
+                        cluster.get_uc(), 
+                        nop_addr,
+                        "\x1f\x20\x03\xd5",
+                        4);
+                }
+                
+                // stub status func setter
+                uc_mem_write(
+                    cluster.get_uc(), 
+                    resolved_syms["lua2cpp::L2CAgentBase::sv_set_status_func(lib::L2CValue const&, lib::L2CValue const&, void*)"],
+                    &ret_asm,
+                    4);
+                uc_mem_write(
+                    cluster.get_uc(), 
+                    resolved_syms["lua2cpp::L2CAgentBase::sv_copy_status_func(lib::L2CValue const&, lib::L2CValue const&, lib::L2CValue const&)"],
+                    &ret_asm,
+                    4);
+            }
+
             uint64_t funcptr = resolved_syms[func + args];
             if (!funcptr) continue;
             
             printf_debug("Running %s(hash40(%s) => 0x%08x, ...)...\n", func.c_str(), hashstr.c_str(), x0);
-            uint64_t output = cluster.execute(funcptr, false, false, x0, x1, x2, x3);
+            output = cluster.execute(funcptr, false, false, x0, x1, x2, x3);
             
             if (output)
             {
                 printf("Got output %" PRIx64 " for %s(hash40(%s) => 0x%08" PRIx64 ", ...), mapping to %s\n", output, func.c_str(), hashstr.c_str(), x0, key.c_str());
+                if (character == "common" && agent == "status_script") {
+                    output = x0;
+                }
                 l2cagents[key] = output;
                 l2cagents_rev[output] = key;
                 
                 // Special MSC stuff, they store funcs in a vtable
                 // so we run function 9 to actually set everything
-                if (agent == "status_script")
+                if (agent == "status_script" && character != "common")
                 {
                     uint64_t vtable_ptr = *(uint64_t*)(cluster.uc_ptr_to_real_ptr(output));
                     uint64_t* vtable = ((uint64_t*)(cluster.uc_ptr_to_real_ptr(vtable_ptr)));
                     uint64_t func = vtable[9];
 
                     cluster.clear_state();
-                    
+
                     cluster.execute(func, true, true, output);
                 }
             }
@@ -482,13 +537,17 @@ int main(int argc, char **argv, char **envp)
             cluster.add_import_hook(addr);
         }
     }
-    
+
     for (auto& pair : l2cagents)
     {
         uint64_t l2cagent = pair.second;
         L2CAgent* agent = (L2CAgent*)cluster.uc_ptr_to_real_ptr(l2cagent);
         agent->lua_state_agent = luastate;
         agent->lua_state_agentbase = luastate;
+        // Set battle object, boma, lua_state if it hasn't been done already
+        *(uint64_t*)(((uint64_t)agent) + 0x38) = x1;
+        *(uint64_t*)(((uint64_t)agent) + 0x40) = x2;
+        *(uint64_t*)(((uint64_t)agent)+ 0x48) = x3;
     }
     
     cluster.set_heap_fixed(true);

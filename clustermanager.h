@@ -59,7 +59,7 @@ public:
         inst = new EmuInstance(this);
         
         // Write in constants
-        memcpy(uc_ptr_to_real_ptr(unresolved_syms["phx::detail::CRC32Table::table_"]), crc32_tab, sizeof(crc32_tab));
+        // memcpy(uc_ptr_to_real_ptr(unresolved_syms["phx::detail::CRC32Table::table_"]), crc32_tab, sizeof(crc32_tab));
         
         id = cluster_id_cnt++;
     }
@@ -96,7 +96,7 @@ public:
         inst = new EmuInstance(this, to_clone->inst);
         
         // Write in constants
-        memcpy(uc_ptr_to_real_ptr(unresolved_syms["phx::detail::CRC32Table::table_"]), crc32_tab, sizeof(crc32_tab));
+        // memcpy(uc_ptr_to_real_ptr(unresolved_syms["phx::detail::CRC32Table::table_"]), crc32_tab, sizeof(crc32_tab));
         
         id = cluster_id_cnt++;
     }
@@ -141,9 +141,18 @@ public:
 
             uc_hook_add(uc, &trace, UC_HOOK_CODE, (void*)hook_import, this, pair.second, pair.second);
         }
+        // code hooks
+        // for (auto pair : resolved_syms)
+        // {
+        //     uc_hook trace;
+
+        //     printf_verbose("Adding hook to %s\n", pair.first.c_str());
+
+        //     uc_hook_add(uc, &trace, UC_HOOK_CODE, (void*)hook_import, this, pair.second, pair.second);
+        // }
         
-        // granular hooks
-        //uc_hook_add(uc, &trace1, UC_HOOK_CODE, (void*)hook_code, this, 1, 0);
+        // // granular hooks
+        // uc_hook_add(uc, &trace1, UC_HOOK_CODE, (void*)hook_code, this, 1, 0);
         uc_hook_add(uc, &trace2, UC_HOOK_MEM_UNMAPPED, (void*)hook_mem_invalid, this, 1, 0);
         uc_hook_add(uc, &trace3, UC_HOOK_MEM_WRITE | UC_HOOK_MEM_READ, (void*)hook_memrw, this, 1, 0);
         

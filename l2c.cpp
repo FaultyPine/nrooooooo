@@ -1,5 +1,6 @@
 #include "l2c.h"
 
+#include "constants.h"
 #include "main.h"
 #include "clustermanager.h"
 
@@ -55,6 +56,11 @@ std::string L2C_Token::to_string(ClusterManager* cluster, uint64_t rel) const
             
             if (unhash[args[i]] != "")
                 out += " (" + unhash[args[i]] + ")";
+            for (auto j : arg_is_const_value) {
+                if (arg_is_const_value[j] == i) {
+                    out += " (" + const_value_table[args[i]] + ")";
+                }
+            }
         }
 
         if (i < args.size() - 1)

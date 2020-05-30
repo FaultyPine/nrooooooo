@@ -7,13 +7,16 @@ OUTPUT = nrooooooo
 CXXFLAGS = -Wall -g -I. -std=c++17 -fsanitize=address
 CFLAGS = -I. -std=gnu11 -fsanitize=address
 # If this fails, use "-pthread" instead of "-lpthread"
-LIBS = -lasan -lpthread -lunicorn -lstdc++fs
+#LIBS = -lasan -lpthread -lunicorn -lstdc++fs
+LDFLAGS = -L/usr/local/opt/unicorn/lib/
+LIBS = -lasan -pthread -lunicorn -lstdc++fs # -liberty
 CC = gcc
 # Note: requires a g++ that supports the -std=c++17 flag, if g++ in your path doesn't support
 #       C++17, update your g++ and possibly edit this to match the right version of g++
 # Example:
 # CXX = g++8
-CXX = g++
+#CXX = g++
+CXX = g++-8
 ifeq ($(OS),Windows_NT)
     #Windows Build CFG
     CFLAGS += 
@@ -33,7 +36,7 @@ else
 endif
 
 main: $(OBJS)
-	$(CXX) -o $(OUTPUT) $(OBJS) $(LIBS)
+	$(CXX) -o $(OUTPUT) $(OBJS) $(LDFLAGS) $(LIBS) 
 
 clean:
 	rm -rf $(OUTPUT) $(OUTPUT).exe $(OBJS)

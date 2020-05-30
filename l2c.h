@@ -32,6 +32,7 @@ struct L2C_Token
     std::string str;
     L2C_TokenType type;
     std::vector<uint64_t> args;
+    std::vector<size_t> arg_is_const_value;
     std::vector<float> fargs;
     
     L2C_Token() : pc(0), fork_hierarchy(), str(""), type(L2C_TokenType_Invalid), args(), fargs() {}
@@ -216,7 +217,12 @@ struct L2CValue
     L2CValue(int val)
     {
         type = L2C_integer;
-        raw = val;
+        if ((val & 0x00000000BABE0000) == 0xBABE0000) {
+            unk = 0xBABE;
+            raw = val & 0x000000000000FFFF;
+        } else {
+            raw = val;
+        }
     }
     
     L2CValue(uint64_t val)
@@ -268,6 +274,10 @@ struct L2CValue
     
     int64_t as_integer(void)
     {
+        if (unk == 0xBABE) {
+            // return actual const value
+            return raw & 0x000000000000FFFF;
+        }
         return (int64_t)raw;
     }
     
