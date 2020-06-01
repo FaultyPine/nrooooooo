@@ -8,7 +8,7 @@ CXXFLAGS = -Wall -g -I. -std=c++17 -fsanitize=address
 CFLAGS = -I. -std=gnu11 -fsanitize=address
 # If this fails, use "-pthread" instead of "-lpthread"
 #LIBS = -lasan -lpthread -lunicorn -lstdc++fs
-LDFLAGS = -L/usr/local/opt/unicorn/lib/
+LDFLAGS = -L/usr/local/opt/unicorn/lib/ -L/Users/jsambasivam/src/nrooooooo/unicorn
 LIBS = -lasan -pthread -lunicorn -lstdc++fs # -liberty
 CC = gcc
 # Note: requires a g++ that supports the -std=c++17 flag, if g++ in your path doesn't support

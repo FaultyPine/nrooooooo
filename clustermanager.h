@@ -5,6 +5,8 @@
 #include <string>
 #include <stdint.h>
 #include <thread>
+#include <iostream>
+#include <fstream>
 #include "uc_inst.h"
 
 // memory addresses for different segments
@@ -231,8 +233,8 @@ public:
     void add_subreplace_token(EmuInstance* inst, uint64_t block, L2C_Token token);
     uint64_t find_containing_block(uint64_t addr);
     void clean_and_verify_blocks(uint64_t func, bool is_noreturn);
-    std::string print_block(uint64_t b);
-    std::string print_blocks(uint64_t func, std::unordered_map<uint64_t, bool>* block_visited = nullptr);
+    void print_block(uint64_t b, std::ofstream& file);
+    void print_blocks(uint64_t func, std::ofstream& file, std::unordered_map<uint64_t, bool>* block_visited = nullptr);
     
     void invalidate_blocktree(EmuInstance* inst, uint64_t func);
     uint64_t execute(uint64_t start, bool run_slow, bool reset_heap_after, uint64_t x0 = 0, uint64_t x1 = 0, uint64_t x2 = 0, uint64_t x3 = 0);

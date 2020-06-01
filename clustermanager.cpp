@@ -1,4 +1,5 @@
 #include "clustermanager.h"
+#include "constants.h"
 
 #include <algorithm>
 #include <cstring>
@@ -263,9 +264,9 @@ void ClusterManager::clean_and_verify_blocks(uint64_t func, bool is_noreturn)
     }
 }
 
-std::string ClusterManager::print_block(uint64_t b)
+void ClusterManager::print_block(uint64_t b, std::ofstream& file)
 {
-    char tmp[256];
+    char tmp[1024];
     std::string out = "";
     /*if (block_printed[b])
     {
@@ -275,20 +276,64 @@ std::string ClusterManager::print_block(uint64_t b)
     }*/
 
     //snprintf(tmp, 255, "\nBlock %" PRIx64 " (end %" PRIx64 ") type %u, size %x, %u tokens, creation %s:\n", b, blocks[b].addr_end, blocks[b].type, blocks[b].size(), tokens[b].size(), blocks[b].fork_hierarchy_str().c_str());
-    snprintf(tmp, 255, "\nBlock %" PRIx64 " type %u, size %x, %u tokens, creation %s:\n", block_hash(b), blocks[b].type, blocks[b].size(), tokens[b].size(), blocks[b].fork_hierarchy_str().c_str());
-    out += std::string(tmp);
+    snprintf(tmp, 1024, "\nBlock %" PRIx64 " type %u, size %x, %u tokens, creation %s:\n", block_hash(b), blocks[b].type, blocks[b].size(), tokens[b].size(), blocks[b].fork_hierarchy_str().c_str());
+    file << std::string(tmp);
+
+    std::vector<L2C_Token> args;
 
     for (auto& t : tokens[b])
     {
-        out += t.to_string(this, b);
+        if (t.str.find("~L2CValue") != std::string::npos) {
+            args.clear();
+            continue;
+        } else if (t.str.find("as_integer") != std::string::npos) {
+            args.push_back(t);
+            // continue;
+        } else if (t.str.find("as_number") != std::string::npos) {
+            args.push_back(t);
+            continue;
+        } else if (t.str.find("as_hash") != std::string::npos) {
+            args.push_back(t);
+            continue;
+        } else if (t.str.find("lib::L2CValue::L2CValue(") != std::string::npos) {
+            // continue;
+        }
+        try {
+            t.to_file(this, b, file);
+            if (t.str.find("app::lua_bind") != std::string::npos) {
+                for (auto arg: args) {
+                    if (arg.str.find("as_integer") != std::string::npos) {
+                        snprintf(tmp, 1024, "0x%lx", arg.args[0]);
+                        file << " " + std::string(tmp);
+                        for (auto j : arg.arg_is_const_value) {
+                            if (arg.arg_is_const_value[j] == 0) {
+                                file << " (" + const_value_table[arg.args[j]] + ")";
+                                break;
+                            }
+                        }
+                    } else if (arg.str.find("as_number") != std::string::npos) {
+                        snprintf(tmp, 1024, "%f", arg.fargs[0]);
+                        file << " " + std::string(tmp);
+                    } else if (arg.str.find("as_hash") != std::string::npos) {
+                        snprintf(tmp, 1024, "%f", arg.args[0]);
+                        file << " " + std::string(tmp);
+                    }
+                }
+            }
+            file << "\n";
+        } catch (std::exception& e) {
+            std::cout << "Failed to write blocks with exception:" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << t.str << std::endl;
+        }
     }
     
     block_printed[b] = true;
     
-    return out;
+    return;
 }
 
-std::string ClusterManager::print_blocks(uint64_t func, std::unordered_map<uint64_t, bool>* block_visited)
+void ClusterManager::print_blocks(uint64_t func, std::ofstream& file, std::unordered_map<uint64_t, bool>* block_visited)
 {
     char tmp[256];
     std::string out = "";
@@ -304,7 +349,7 @@ std::string ClusterManager::print_blocks(uint64_t func, std::unordered_map<uint6
         needs_free = true;
     }
     
-    if ((*block_visited)[func]) return "";
+    if ((*block_visited)[func]) return;
     
     (*block_visited)[func] = true;
     block_visited_here.push_back(func);
@@ -339,19 +384,21 @@ std::string ClusterManager::print_blocks(uint64_t func, std::unordered_map<uint6
     
     for (auto b : block_visited_here)
     {
-        out += print_block(b);
+        print_block(b, file);
     }
     
     for (auto& pair : block_skipped)
     {
         uint64_t b = pair.first;
         
-        out += print_blocks(b, block_visited);
+        print_blocks(b, file, block_visited);
     }
     
     if (needs_free) delete block_visited;
+
+    file << out;
     
-    return out;
+    return;
 }
 
 void ClusterManager::invalidate_blocktree(EmuInstance* inst, uint64_t func)

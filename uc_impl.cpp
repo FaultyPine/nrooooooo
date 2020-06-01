@@ -1,3 +1,7 @@
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 #include "uc_impl.h"
 
 #include "uc_inst.h"
@@ -45,6 +49,7 @@ void uc_read_reg_state(uc_engine *uc, struct uc_reg_state *regs)
     uc_reg_read(uc, UC_ARM64_REG_SP, &regs->sp);
     uc_reg_read(uc, UC_ARM64_REG_PC, &regs->pc);
     uc_reg_read(uc, UC_ARM64_REG_NZCV, &regs->nzcv);
+    uc_reg_read(uc, UC_ARM64_REG_CPACR_EL1, &regs->cpacr_el1);
     
     uc_reg_read(uc, UC_ARM64_REG_S0, &regs->s0);
     uc_reg_read(uc, UC_ARM64_REG_S1, &regs->s1);
@@ -116,6 +121,7 @@ void uc_write_reg_state(uc_engine *uc, struct uc_reg_state *regs)
     uc_reg_write(uc, UC_ARM64_REG_SP, &regs->sp);
     uc_reg_write(uc, UC_ARM64_REG_PC, &regs->pc);
     uc_reg_write(uc, UC_ARM64_REG_NZCV, &regs->nzcv);
+    uc_reg_write(uc, UC_ARM64_REG_CPACR_EL1, &regs->cpacr_el1);
     
     uc_reg_write(uc, UC_ARM64_REG_S0, &regs->s0);
     uc_reg_write(uc, UC_ARM64_REG_S1, &regs->s1);
@@ -157,6 +163,7 @@ void uc_print_regs(uc_engine *uc)
     uint64_t x9, x10, x11, x12, x13, x14, x15, x16;
     uint64_t x17, x18, x19, x20, x21, x22, x23, x24;
     uint64_t x25, x26, x27, x28, fp, lr, sp, pc, nzcv;
+    uint32_t cpacr_el1;
     
     if (!logmask_is_set(LOGMASK_DEBUG)) return;
     
@@ -194,6 +201,7 @@ void uc_print_regs(uc_engine *uc)
     uc_reg_read(uc, UC_ARM64_REG_SP, &sp);
     uc_reg_read(uc, UC_ARM64_REG_PC, &pc);
     uc_reg_read(uc, UC_ARM64_REG_NZCV, &nzcv);
+    uc_reg_read(uc, UC_ARM64_REG_CPACR_EL1, &cpacr_el1);
 
     printf_debug("Register dump:\n");
     printf_debug("x0  %16.16" PRIx64 " ", x0);
@@ -233,6 +241,7 @@ void uc_print_regs(uc_engine *uc)
     printf("\n");
     printf_debug("x28 %16.16" PRIx64 " ", x28);
     printf("nzcv %16.16" PRIx64 " ", nzcv);
+    printf("cpacr_el1 %16.16" PRIx64 " ", cpacr_el1);
     printf("\n");
     printf_debug("fp  %16.16" PRIx64 " ", fp);
     printf("lr  %16.16" PRIx64 " ", lr);
@@ -442,7 +451,7 @@ void hook_import(uc_engine *uc, uint64_t address, uint32_t size, ClusterManager*
         kind = const_value_table[a_raw].substr(strlen("FIGHTER_STATUS_KIND_"));
         func = const_value_table[b_raw].substr(strlen("LUA_SCRIPT_STATUS_FUNC_"));
 
-        // if (kind == "ESCAPE_AIR")
+        // if (kind == "SPECIAL_S" && func == "STATUS_MAIN")
         {
             std::string func_str = kind + "__" + func;
             status_funcs[statusconcat] = func_str;
@@ -452,6 +461,23 @@ void hook_import(uc_engine *uc, uint64_t address, uint32_t size, ClusterManager*
             function_hashes[std::pair<uint64_t, uint64_t>(args[0], statusconcat)] = funcptr;
         }
     }
+    // else if (name.find("app::lua_bind") != std::string::npos)
+    // {
+        // size_t arg_start = name.find("(") + 1;
+        // size_t arg_end = name.find(")");
+        // std::stringstream ss(name.substr(arg_start, arg_end - arg_start));
+        // std::string arg;
+        // size_t j = 0;
+        // while (std::getline(ss, arg, ',')) {
+        //     if (arg == " int") {
+        //         token.args.push_back(args[j]);
+        //     } else if (arg == " float") {
+        //         token.fargs.push_back(args[j]);
+        //     }
+
+        //     j++;
+        // }
+    // }
     else if (name == "lib::utility::Variadic::get_format() const")
     {
         args[0] = 0;
@@ -658,8 +684,10 @@ void hook_import(uc_engine *uc, uint64_t address, uint32_t size, ClusterManager*
 
         if (var)
         {
-            args[0] = var->as_integer();
             token.args.push_back(var->as_integer());
+            if (var->unk == 0xBABE)
+                token.arg_is_const_value.push_back(token.args.size()-1);
+            args[0] = var->as_integer();
         }
         else
             printf_error("Instance Id %u: Bad L2CValue access, %" PRIx64 ", %" PRIx64 "\n", inst->get_id(), args[0], origin);

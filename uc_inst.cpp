@@ -364,7 +364,7 @@ uc_err EmuInstance::uc_run_slice()
         }
         else
         {
-            printf_error("Instance Id %u: Failed on uc_emu_start() with error returned: %u\n", get_id(), err);
+            printf_error("Instance Id %u: Failed on uc_emu_start() with error returned: %u: %s\n", get_id(), err, uc_strerror(err));
             uc_print_regs(cluster->get_uc()); // use struct
             uc_term = true;
             return err;
@@ -426,7 +426,7 @@ uint64_t EmuInstance::execute(uint64_t start, bool run_slow, bool reset_heap_aft
     uc_err err = UC_ERR_OK;
     uint64_t heap_size_start = heap_size;
     
-    uint64_t outval = heap_alloc(0x10);
+    uint64_t outval = heap_alloc(0x12);
 
     uc_term = false;
     slow = run_slow;

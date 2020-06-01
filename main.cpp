@@ -264,28 +264,27 @@ void cluster_oncomplete(ClusterManager* cluster, uint64_t ret, void* data)
         out += " ";
     }
     out += func_name + "\n";
+
+    std::string dir_out = outdir + "/" + agent_name;
+    std::string file_out = dir_out + "/" + func_name + ".txt";
+    std::string file_out_lua = dir_out + "/" + func_name + ".lc";
+    std::filesystem::create_directories(dir_out);
+    std::ofstream file(file_out);
     
     snprintf(tmp, 255, "                %8" PRIx64 "\n", cluster->block_hash(funcptr));
     out += std::string(tmp);
     out += ">--------------------------------------<\n";
 
-    out += cluster->print_blocks(funcptr);
+    file << out;
 
-    out += "<-------------------------------------->\n";
-    
-    std::string dir_out = outdir + "/" + agent_name;
-    std::string file_out = dir_out + "/" + func_name + ".txt";
-    std::string file_out_lua = dir_out + "/" + func_name + ".lc";
-    try 
-    {
-        std::filesystem::create_directories(dir_out);
-        std::ofstream file(file_out);
-        file << out;
-    }
-    catch (std::exception& e) 
-    {
+    try {
+        cluster->print_blocks(funcptr, file);
+    } catch (std::exception& e) {
+        std::cout << "Failed to write blocks with exception:" << std::endl;
         std::cout << e.what() << std::endl;
     }
+
+    file << "<-------------------------------------->\n";
     
     clusters_active--;
     
@@ -344,6 +343,14 @@ void cluster_work(ClusterManager* cluster, std::string character, std::string ou
     
     ClusterManager* clone = new ClusterManager(cluster);
     clusters_active++;
+
+    // if (func_name.find("STATUS_MAIN") != std::string::npos) {
+    //     uc_mem_write(
+    //         clone->get_uc(), 
+    //         funcptr + 4,
+    //         "\x1f\x20\x03\xd5",
+    //         4);
+    // }
     
     if (!strncmp(agent_name.c_str() + character.size() + 1, "ai_mode", 7))
     {
@@ -468,6 +475,8 @@ int main(int argc, char **argv, char **envp)
                     &ret_asm,
                     4);
             }
+            // if (agent != "status_script")
+            //     continue;
 
             uint64_t funcptr = resolved_syms[func + args];
             if (!funcptr) continue;

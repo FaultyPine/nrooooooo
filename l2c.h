@@ -81,6 +81,7 @@ struct L2C_Token
     }
     
     std::string to_string(ClusterManager* cluster, uint64_t rel = 0) const;
+    void to_file(ClusterManager* cluster, uint64_t rel, std::ofstream& file) const;
 };
 
 enum L2C_CodeBlockType

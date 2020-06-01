@@ -205,7 +205,7 @@ enum luac_Opcode : uint8_t
 
 class LuaBytecodeEmitter
 {
-private:
+public:
     std::string path;
     std::vector<uint8_t> emitted;
     std::vector<luac_Instruction> instructions;

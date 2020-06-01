@@ -1,4 +1,10 @@
 #include "constants.h"
+#include <string.h>
+#include <time.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <filesystem>
 
 std::set<uint32_t> last_crcs;
 std::map<uint64_t, std::string> unhash;
@@ -724,6 +730,10 @@ void init_character_objects()
     inkling_objs.push_back("inkling_squid");
     character_objects["inkling"] = inkling_objs;
 
+    std::vector<std::string> jack_objs;
+    jack_objs.push_back("jack");
+    character_objects["jack"] = jack_objs;
+
     std::vector<std::string> kamui_objs;
     kamui_objs.push_back("kamui");
     kamui_objs.push_back("kamui_dragonhand");
@@ -1422,8 +1432,36 @@ void init_character_objects()
     character_objects["zenigame"] = zenigame_objs;
     
     std::vector<std::string> common_objs;
-    common_objs.push_back("common");
+    // common_objs.push_back("common");
     common_objs.push_back("fighter_common");
-    common_objs.push_back("base");
+    // common_objs.push_back("base");
     character_objects["common"] = common_objs;
+}
+
+std::vector<int> const_value_table_values;
+std::vector<std::string> const_value_table;
+
+void init_const_value_table() {
+	// Load in const value table
+    std::ifstream const_value_lines("const_value_table_with_values_700.txt");
+	std::string line;
+    size_t i = 0;
+    while (std::getline(const_value_lines, line))
+    {
+        if (const_value_table_values.size() > 0x43ec) {
+            break;
+        }
+        std::stringstream ss(line);
+        std::string token;
+        size_t j = 0;
+        while (std::getline(ss, token, ',')) {
+            if (j == 1) {
+                const_value_table.push_back(token);
+            } else if (j == 2) {
+                const_value_table_values.push_back(std::stoul(token, nullptr, 16));
+            }
+
+            j++;
+        }
+    }
 }

@@ -13,6 +13,7 @@ typedef struct uc_reg_state
     uint64_t x9, x10, x11, x12, x13, x14, x15, x16;
     uint64_t x17, x18, x19, x20, x21, x22, x23, x24;
     uint64_t x25, x26, x27, x28, fp, lr, sp, pc, nzcv;
+    uint32_t cpacr_el1;
     
     double s0, s1, s2, s3, s4, s5 ,s6 ,s7, s8;
     double s9, s10, s11, s12, s13, s14, s15, s16;
