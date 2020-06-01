@@ -22,14 +22,14 @@ public:
     {
         emitter.EmitLuacHeader();
         emitter.BeginFunction(0, 0, 0, 1, 2);
-        luac_Constant cons = luac_Constant
-        {
-            type: luac_Integer,
-            number: 0,
-            integer: 10,//token.args[0],
-            string: "",
-        };
-        emitter.constants.push_back(cons);
+        // luac_Constant cons = luac_Constant
+        // {
+        //     type: luac_Integer,
+        //     number: 0,
+        //     integer: 10,//token.args[0],
+        //     string: "",
+        // };
+        // emitter.constants.push_back(cons);
         // for (auto& pair: tokens) {
         //     break;
         //     for (auto token: pair.second) {
