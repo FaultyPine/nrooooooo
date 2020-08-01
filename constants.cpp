@@ -623,6 +623,7 @@ void init_character_objects()
     common_objs.push_back("common");
     common_objs.push_back("common_shake");
     common_objs.push_back("common_loupe_shadow");
+    common_objs.push_back("fighter_common");
     character_objects["common"] = common_objs;
 
     std::vector<std::string> daisy_objs;
@@ -857,7 +858,7 @@ void init_character_objects()
     koopa_objs.push_back("koopa_breath");
     koopa_objs.push_back("koopa_scharge");
 
-	// Are these really needed?
+    // Are these needed here?
     koopa_objs.push_back("koopag");
     koopa_objs.push_back("koopag_breath");
     koopa_objs.push_back("koopajr");
@@ -930,7 +931,6 @@ void init_character_objects()
     littlemac_objs.push_back("littlemac_dummy_fighter");
     character_objects["littlemac"] = littlemac_objs;
 
-	// Should be plizardon... Added later
     std::vector<std::string> lizardon_objs;
     lizardon_objs.push_back("lizardon");
     character_objects["lizardon"] = lizardon_objs;
@@ -981,13 +981,7 @@ void init_character_objects()
     std::vector<std::string> mario_objs;
     mario_objs.push_back("mario");
     mario_objs.push_back("mario_cappy");
-    mario_objs.push_back("mariod");
-    mario_objs.push_back("mariod_capsuleblock");
-    mario_objs.push_back("mariod_drcapsule");
-    mario_objs.push_back("mariod_drmantle");
-    mario_objs.push_back("mariod_huge_capsule");
     mario_objs.push_back("mario_dokan");
-    mario_objs.push_back("mariod_stethoscope");
     mario_objs.push_back("mario_fireball");
     //mario_objs.push_back("mario_huge_flame");
     mario_objs.push_back("mario_hugeflame");
@@ -995,6 +989,14 @@ void init_character_objects()
     mario_objs.push_back("mario_pump");
     //mario_objs.push_back("mario_pump_water");
     mario_objs.push_back("mario_pumpwater");
+
+    mario_objs.push_back("mariod");
+    mario_objs.push_back("mariod_capsuleblock");
+    mario_objs.push_back("mariod_drcapsule");
+    mario_objs.push_back("mariod_drmantle");
+    //mario_objs.push_back("mariod_huge_capsule");
+    mario_objs.push_back("mariod_hugecapsule");
+    mario_objs.push_back("mariod_stethoscope");
     character_objects["mario"] = mario_objs;
 
     std::vector<std::string> mariod_objs;
@@ -1094,6 +1096,7 @@ void init_character_objects()
     character_objects["miiswordsman"] = miiswordsman_objs;
 
     std::vector<std::string> murabito_objs;
+    // Is all this furniture really necessary?
     murabito_objs.push_back("murabito");
     murabito_objs.push_back("murabito_tommy");
     murabito_objs.push_back("murabito_furniture18");
@@ -1147,6 +1150,8 @@ void init_character_objects()
     murabito_objs.push_back("murabito_seed");
     murabito_objs.push_back("murabito_furniture22");
     murabito_objs.push_back("murabito_sprinkling_water");
+
+    // Original
     //murabito_objs.push_back("murabito");
     //murabito_objs.push_back("murabito_balloon");
     //murabito_objs.push_back("murabito_beetle");
@@ -1488,6 +1493,15 @@ void init_character_objects()
     samus_objs.push_back("samus");
     samus_objs.push_back("samus_bomb");
     samus_objs.push_back("samus_cshot");
+    samus_objs.push_back("samus_gbeam");
+    samus_objs.push_back("samus_gun");
+    samus_objs.push_back("samus_laser");
+    samus_objs.push_back("samus_laser2");
+    samus_objs.push_back("samus_missile");
+    samus_objs.push_back("samus_supermissile");
+    samus_objs.push_back("samus_transportation");
+    samus_objs.push_back("samus_gbeamreverse");
+
     samus_objs.push_back("samusd");
     samus_objs.push_back("samusd_bomb");
     samus_objs.push_back("samusd_bunshin");
@@ -1499,14 +1513,6 @@ void init_character_objects()
     samus_objs.push_back("samusd_missile");
     samus_objs.push_back("samusd_supermissile");
     samus_objs.push_back("samusd_transportation");
-    samus_objs.push_back("samus_gbeam");
-    samus_objs.push_back("samus_gun");
-    samus_objs.push_back("samus_laser");
-    samus_objs.push_back("samus_laser2");
-    samus_objs.push_back("samus_missile");
-    samus_objs.push_back("samus_supermissile");
-    samus_objs.push_back("samus_transportation");
-    samus_objs.push_back("samus_gbeamreverse");
     character_objects["samus"] = samus_objs;
 
     std::vector<std::string> samusd_objs;
@@ -1670,7 +1676,7 @@ void init_character_objects()
     wolf_objs.push_back("wolf_wolfen");
     character_objects["wolf"] = wolf_objs;
 
-	// Not sure if all the yoshimobXX, etc. are needed
+    // Not sure if all the yoshimobXX, etc. are needed
     std::vector<std::string> yoshi_objs;
     yoshi_objs.push_back("yoshi");
     yoshi_objs.push_back("yoshi_yoshimob00");
@@ -1731,9 +1737,9 @@ std::vector<int> const_value_table_values;
 std::vector<std::string> const_value_table;
 
 void init_const_value_table() {
-	// Load in const value table
+    // Load in const value table
     std::ifstream const_value_lines("const_value_table_with_values_700.txt");
-	std::string line;
+    std::string line;
     size_t i = 0;
     while (std::getline(const_value_lines, line))
     {
