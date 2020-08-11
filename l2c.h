@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <string>
 
 #include "useful.h"
 #include "crc32.h"

@@ -568,12 +568,43 @@ void init_character_objects()
     bayonetta_objs.push_back("bayonetta_specialn_bullet");
     bayonetta_objs.push_back("bayonetta_wickedweavearm");
     bayonetta_objs.push_back("bayonetta_wickedweaveleg");
+    bayonetta_objs.push_back("bayonetta_finalbg");
     character_objects["bayonetta"] = bayonetta_objs;
+
+
+    std::vector<std::string> brave_objs;
+    brave_objs.push_back("brave");
+    brave_objs.push_back("brave_tornado");
+    brave_objs.push_back("brave_crash");
+    brave_objs.push_back("brave_deathball");
+    brave_objs.push_back("brave_spark");
+    brave_objs.push_back("brave_blue");
+    brave_objs.push_back("brave_fireball");
+    brave_objs.push_back("brave_lightning");
+    brave_objs.push_back("brave_sleep");
+    brave_objs.push_back("brave_flash");
+    brave_objs.push_back("brave_explosion");
+    character_objects["brave"] = brave_objs;
+
+    std::vector<std::string> buddy_objs;
+    buddy_objs.push_back("buddy");
+    buddy_objs.push_back("buddy_bigbirdbase");
+    buddy_objs.push_back("buddy_strings");
+    buddy_objs.push_back("buddy_pad");
+    buddy_objs.push_back("buddy_bird");
+    buddy_objs.push_back("buddy_bigbird");
+    buddy_objs.push_back("buddy_bullet");
+    buddy_objs.push_back("buddy_partner");
+    buddy_objs.push_back("buddy_entrywipe");
+    buddy_objs.push_back("buddy_piece");
+    buddy_objs.push_back("buddy_horn");
+    character_objects["buddy"] = buddy_objs;
 
     std::vector<std::string> captain_objs;
     captain_objs.push_back("captain");
     captain_objs.push_back("captain_bluefalcon");
     captain_objs.push_back("captain_falconpunch");
+    captain_objs.push_back("captain_finalbg");
     character_objects["captain"] = captain_objs;
 
     std::vector<std::string> chrom_objs;
@@ -584,13 +615,23 @@ void init_character_objects()
     std::vector<std::string> cloud_objs;
     cloud_objs.push_back("cloud");
     cloud_objs.push_back("cloud_wave");
+    cloud_objs.push_back("cloud_limitgauge");
+    cloud_objs.push_back("cloud_skillwindow");
     character_objects["cloud"] = cloud_objs;
+
+    std::vector<std::string> common_objs;
+    common_objs.push_back("common");
+    common_objs.push_back("common_shake");
+    common_objs.push_back("common_loupe_shadow");
+    common_objs.push_back("fighter_common");
+    character_objects["common"] = common_objs;
 
     std::vector<std::string> daisy_objs;
     daisy_objs.push_back("daisy");
     daisy_objs.push_back("daisy_kassar");
     daisy_objs.push_back("daisy_kinopio");
     daisy_objs.push_back("daisy_kinopiospore");
+    daisy_objs.push_back("daisy_daisydaikon");
     character_objects["daisy"] = daisy_objs;
 
     std::vector<std::string> dedede_objs;
@@ -602,8 +643,11 @@ void init_character_objects()
     dedede_objs.push_back("dedede_newdededehammer");
     dedede_objs.push_back("dedede_shrine");
     dedede_objs.push_back("dedede_star");
-    dedede_objs.push_back("dedede_star_missile");
+    dedede_objs.push_back("dedede_starmissile");
     dedede_objs.push_back("dedede_waddledee");
+    dedede_objs.push_back("dedede_waddledoo");
+    dedede_objs.push_back("dedede_bomb");
+    dedede_objs.push_back("dedede_bombhammer");
     character_objects["dedede"] = dedede_objs;
 
     std::vector<std::string> diddy_objs;
@@ -616,17 +660,33 @@ void init_character_objects()
     diddy_objs.push_back("diddy_gun");
     diddy_objs.push_back("diddy_lock_on_cursor");
     diddy_objs.push_back("diddy_peanuts");
+    diddy_objs.push_back("diddy_banana");
+    diddy_objs.push_back("diddy_diddypeanuts");
+    diddy_objs.push_back("diddy_dkbarrelv");
+    diddy_objs.push_back("diddy_peanutgun");
+    diddy_objs.push_back("diddy_peanut");
     character_objects["diddy"] = diddy_objs;
+
+    std::vector<std::string> dolly_objs;
+    dolly_objs.push_back("dolly");
+    dolly_objs.push_back("dolly_burst");
+    dolly_objs.push_back("dolly_fire");
+    dolly_objs.push_back("dolly_wave");
+    dolly_objs.push_back("dolly_cap");
+    character_objects["dolly"] = dolly_objs;
 
     std::vector<std::string> donkey_objs;
     donkey_objs.push_back("donkey");
     donkey_objs.push_back("donkey_dkbarrel");
+    donkey_objs.push_back("donkey_suuji");
+    donkey_objs.push_back("donkey_barrelconga");
     character_objects["donkey"] = donkey_objs;
 
     std::vector<std::string> duckhunt_objs;
     duckhunt_objs.push_back("duckhunt");
     duckhunt_objs.push_back("duckhunt_can");
     duckhunt_objs.push_back("duckhunt_clay");
+    duckhunt_objs.push_back("duckhunt_finalbg");
     duckhunt_objs.push_back("duckhunt_finalbird");
     duckhunt_objs.push_back("duckhunt_finalcan");
     duckhunt_objs.push_back("duckhunt_finaldog");
@@ -639,6 +699,8 @@ void init_character_objects()
     duckhunt_objs.push_back("duckhunt_gunmanbullet");
     duckhunt_objs.push_back("duckhunt_kurofukuhat");
     duckhunt_objs.push_back("duckhunt_reticle");
+    duckhunt_objs.push_back("duckhunt_kurohukuhat");
+    duckhunt_objs.push_back("duckhunt_wepon");
     character_objects["duckhunt"] = duckhunt_objs;
 
     std::vector<std::string> falco_objs;
@@ -649,6 +711,7 @@ void init_character_objects()
     falco_objs.push_back("falco_blaster_bullet");
     falco_objs.push_back("falco_illusion");
     falco_objs.push_back("falco_reticle");
+    falco_objs.push_back("falco_landmaster");
     character_objects["falco"] = falco_objs;
 
     std::vector<std::string> fox_objs;
@@ -659,6 +722,7 @@ void init_character_objects()
     fox_objs.push_back("fox_blaster_bullet");
     fox_objs.push_back("fox_illusion");
     fox_objs.push_back("fox_reticle");
+    fox_objs.push_back("fox_landmaster");
     character_objects["fox"] = fox_objs;
 
     std::vector<std::string> fushigisou_objs;
@@ -677,6 +741,10 @@ void init_character_objects()
     gamewatch_objs.push_back("gamewatch_panel");
     gamewatch_objs.push_back("gamewatch_parachute");
     gamewatch_objs.push_back("gamewatch_rescue");
+    gamewatch_objs.push_back("gamewatch_sausage");
+    gamewatch_objs.push_back("gamewatch_friedprawns");
+    gamewatch_objs.push_back("gamewatch_steak");
+    gamewatch_objs.push_back("gamewatch_fish");
     character_objects["gamewatch"] = gamewatch_objs;
 
     std::vector<std::string> ganon_objs;
@@ -712,14 +780,17 @@ void init_character_objects()
     std::vector<std::string> ike_objs;
     ike_objs.push_back("ike");
     ike_objs.push_back("ike_sword");
+    ike_objs.push_back("ike_ragnell");
     character_objects["ike"] = ike_objs;
 
     std::vector<std::string> inkling_objs;
     inkling_objs.push_back("inkling");
     inkling_objs.push_back("inkling_blaster");
     inkling_objs.push_back("inkling_brush");
-    inkling_objs.push_back("inkling_copy_inklinggun");
-    inkling_objs.push_back("inkling_copy_inklingtank");
+    //inkling_objs.push_back("inkling_copy_inklinggun");
+    //inkling_objs.push_back("inkling_copy_inklingtank");
+    inkling_objs.push_back("inkling_copy_inkling_tank");
+    inkling_objs.push_back("inkling_copy_inkling_gun");
     inkling_objs.push_back("inkling_inkbullet");
     inkling_objs.push_back("inkling_megaphonelaser");
     inkling_objs.push_back("inkling_roller");
@@ -732,6 +803,15 @@ void init_character_objects()
 
     std::vector<std::string> jack_objs;
     jack_objs.push_back("jack");
+    jack_objs.push_back("jack_doyle");
+    jack_objs.push_back("jack_fire2");
+    jack_objs.push_back("jack_mona");
+    jack_objs.push_back("jack_windummy");
+    jack_objs.push_back("jack_wirerope");
+    jack_objs.push_back("jack_fire");
+    jack_objs.push_back("jack_bus");
+    jack_objs.push_back("jack_wing");
+    jack_objs.push_back("jack_background");
     character_objects["jack"] = jack_objs;
 
     std::vector<std::string> kamui_objs;
@@ -741,6 +821,7 @@ void init_character_objects()
     kamui_objs.push_back("kamui_spearhand");
     kamui_objs.push_back("kamui_waterdragon");
     kamui_objs.push_back("kamui_waterstream");
+    kamui_objs.push_back("kamui_finalbg");
     character_objects["kamui"] = kamui_objs;
 
     std::vector<std::string> ken_objs;
@@ -772,7 +853,12 @@ void init_character_objects()
 
     std::vector<std::string> koopa_objs;
     koopa_objs.push_back("koopa");
+    koopa_objs.push_back("koopa_koopag");
+    koopa_objs.push_back("koopa_reticle");
     koopa_objs.push_back("koopa_breath");
+    koopa_objs.push_back("koopa_scharge");
+
+    // Are these needed here?
     koopa_objs.push_back("koopag");
     koopa_objs.push_back("koopag_breath");
     koopa_objs.push_back("koopajr");
@@ -784,12 +870,12 @@ void init_character_objects()
     koopa_objs.push_back("koopajr_picopicohammer");
     koopa_objs.push_back("koopajr_remainclown");
     koopa_objs.push_back("koopajr_shadowmario");
-    koopa_objs.push_back("koopa_koopag");
     character_objects["koopa"] = koopa_objs;
 
     std::vector<std::string> koopag_objs;
     koopag_objs.push_back("koopag");
     koopag_objs.push_back("koopag_breath");
+    koopag_objs.push_back("koopag_dummy_fighter");
     character_objects["koopag"] = koopag_objs;
 
     std::vector<std::string> koopajr_objs;
@@ -816,14 +902,23 @@ void init_character_objects()
 
     std::vector<std::string> link_objs;
     link_objs.push_back("link");
-    link_objs.push_back("link_ancient_bow");
-    link_objs.push_back("link_ancient_bowarrow");
+    //link_objs.push_back("link_ancient_bow");
+    //link_objs.push_back("link_ancient_bowarrow");
+    link_objs.push_back("link_ancientbow");
+    link_objs.push_back("link_ancientbowarrow");
     link_objs.push_back("link_boomerang");
     link_objs.push_back("link_bow");
     link_objs.push_back("link_bowarrow");
     link_objs.push_back("link_navy");
     link_objs.push_back("link_parasail");
-    link_objs.push_back("link_sword_beam");
+    //link_objs.push_back("link_sword_beam");
+    link_objs.push_back("link_swordbeam");
+    link_objs.push_back("link_clawshotall");
+    link_objs.push_back("link_clawshot");
+    link_objs.push_back("link_clawshotreverse");
+    link_objs.push_back("link_clawshothand");
+    link_objs.push_back("link_clawshothead");
+    link_objs.push_back("link_linkbomb");
     character_objects["link"] = link_objs;
 
     std::vector<std::string> littlemac_objs;
@@ -833,6 +928,7 @@ void init_character_objects()
     littlemac_objs.push_back("littlemac_littlemacg");
     littlemac_objs.push_back("littlemac_sweatlittlemac");
     littlemac_objs.push_back("littlemac_throwsweat");
+    littlemac_objs.push_back("littlemac_dummy_fighter");
     character_objects["littlemac"] = littlemac_objs;
 
     std::vector<std::string> lizardon_objs;
@@ -854,15 +950,24 @@ void init_character_objects()
     lucas_objs.push_back("lucas_himohebi2");
     lucas_objs.push_back("lucas_kumatora");
     lucas_objs.push_back("lucas_needle");
-    lucas_objs.push_back("lucas_pk_fire");
-    lucas_objs.push_back("lucas_pk_freeze");
-    lucas_objs.push_back("lucas_pk_starstorm");
-    lucas_objs.push_back("lucas_pk_thunder");
+    //lucas_objs.push_back("lucas_pk_fire");
+    //lucas_objs.push_back("lucas_pk_freeze");
+    //lucas_objs.push_back("lucas_pk_starstorm");
+    //lucas_objs.push_back("lucas_pk_thunder");
+    lucas_objs.push_back("lucas_pkfire");
+    lucas_objs.push_back("lucas_pkfreeze");
+    lucas_objs.push_back("lucas_pkstarstorm");
+    lucas_objs.push_back("lucas_pkthunder");
+    lucas_objs.push_back("lucas_yoyo");
+    lucas_objs.push_back("lucas_yoyohead");
+    lucas_objs.push_back("lucas_himohebireverse");
     character_objects["lucas"] = lucas_objs;
 
     std::vector<std::string> lucina_objs;
     lucina_objs.push_back("lucina");
     lucina_objs.push_back("lucina_mask");
+    lucina_objs.push_back("lucina_bow");
+    lucina_objs.push_back("lucina_bowarrow");
     character_objects["lucina"] = lucina_objs;
 
     std::vector<std::string> luigi_objs;
@@ -876,18 +981,22 @@ void init_character_objects()
     std::vector<std::string> mario_objs;
     mario_objs.push_back("mario");
     mario_objs.push_back("mario_cappy");
+    mario_objs.push_back("mario_dokan");
+    mario_objs.push_back("mario_fireball");
+    //mario_objs.push_back("mario_huge_flame");
+    mario_objs.push_back("mario_hugeflame");
+    mario_objs.push_back("mario_mantle");
+    mario_objs.push_back("mario_pump");
+    //mario_objs.push_back("mario_pump_water");
+    mario_objs.push_back("mario_pumpwater");
+
     mario_objs.push_back("mariod");
     mario_objs.push_back("mariod_capsuleblock");
     mario_objs.push_back("mariod_drcapsule");
     mario_objs.push_back("mariod_drmantle");
-    mario_objs.push_back("mariod_huge_capsule");
-    mario_objs.push_back("mario_dokan");
+    //mario_objs.push_back("mariod_huge_capsule");
+    mario_objs.push_back("mariod_hugecapsule");
     mario_objs.push_back("mariod_stethoscope");
-    mario_objs.push_back("mario_fireball");
-    mario_objs.push_back("mario_huge_flame");
-    mario_objs.push_back("mario_mantle");
-    mario_objs.push_back("mario_pump");
-    mario_objs.push_back("mario_pump_water");
     character_objects["mario"] = mario_objs;
 
     std::vector<std::string> mariod_objs;
@@ -895,19 +1004,38 @@ void init_character_objects()
     mariod_objs.push_back("mariod_capsuleblock");
     mariod_objs.push_back("mariod_drcapsule");
     mariod_objs.push_back("mariod_drmantle");
-    mariod_objs.push_back("mariod_huge_capsule");
+    //mariod_objs.push_back("mariod_huge_capsule");
+    mariod_objs.push_back("mariod_hugecapsule");
     mariod_objs.push_back("mariod_stethoscope");
+    mariod_objs.push_back("mariod_hugeflame");
     character_objects["mariod"] = mariod_objs;
 
     std::vector<std::string> marth_objs;
     marth_objs.push_back("marth");
+    marth_objs.push_back("marth_hpwindow");
     character_objects["marth"] = marth_objs;
+
+    std::vector<std::string> master_objs;
+    master_objs.push_back("master");
+    master_objs.push_back("master_arrow");
+    master_objs.push_back("master_bow");
+    master_objs.push_back("master_baton");
+    master_objs.push_back("master_axe");
+    master_objs.push_back("master_arrow2");
+    master_objs.push_back("master_sword2");
+    master_objs.push_back("master_arrow1");
+    master_objs.push_back("master_swordflare");
+    master_objs.push_back("master_sword");
+    master_objs.push_back("master_background");
+    master_objs.push_back("master_spear");
+    character_objects["master"] = master_objs;
 
     std::vector<std::string> metaknight_objs;
     metaknight_objs.push_back("metaknight");
     metaknight_objs.push_back("metaknight_bunshin");
     metaknight_objs.push_back("metaknight_fourwings");
     metaknight_objs.push_back("metaknight_mantle");
+    metaknight_objs.push_back("metaknight_finalmantle");
     character_objects["metaknight"] = metaknight_objs;
 
     std::vector<std::string> mewtwo_objs;
@@ -968,60 +1096,140 @@ void init_character_objects()
     character_objects["miiswordsman"] = miiswordsman_objs;
 
     std::vector<std::string> murabito_objs;
+    // Is all this furniture really necessary?
     murabito_objs.push_back("murabito");
-    murabito_objs.push_back("murabito_balloon");
-    murabito_objs.push_back("murabito_beetle");
-    murabito_objs.push_back("murabito_bowling_ball");
-    murabito_objs.push_back("murabito_bullet");
-    murabito_objs.push_back("murabito_butterflynet");
-    murabito_objs.push_back("murabito_clayrocket");
-    murabito_objs.push_back("murabito_firework");
-    murabito_objs.push_back("murabito_flowerpot");
-    murabito_objs.push_back("murabito_furniture");
-    murabito_objs.push_back("murabito_helmet");
-    murabito_objs.push_back("murabito_house");
-    murabito_objs.push_back("murabito_moneybag");
-    murabito_objs.push_back("murabito_seed");
-    murabito_objs.push_back("murabito_slingshot");
-    murabito_objs.push_back("murabito_sprinkling_water");
-    murabito_objs.push_back("murabito_sprout");
-    murabito_objs.push_back("murabito_stump");
-    murabito_objs.push_back("murabito_timmy");
     murabito_objs.push_back("murabito_tommy");
+    murabito_objs.push_back("murabito_furniture18");
+    murabito_objs.push_back("murabito_timmy");
+    murabito_objs.push_back("murabito_furniture16");
+    murabito_objs.push_back("murabito_beetle");
+    murabito_objs.push_back("murabito_furniture20");
+    murabito_objs.push_back("murabito_furniture07");
+    murabito_objs.push_back("murabito_furniture15");
+    murabito_objs.push_back("murabito_moneybag");
+    murabito_objs.push_back("murabito_helmet");
+    murabito_objs.push_back("murabito_furniture06");
+    murabito_objs.push_back("murabito_flowerpot");
+    murabito_objs.push_back("murabito_woodenstick");
+    murabito_objs.push_back("murabito_furniture05");
+    murabito_objs.push_back("murabito_bullet");
+    murabito_objs.push_back("murabito_furniture10");
     murabito_objs.push_back("murabito_tomnook");
+    murabito_objs.push_back("murabito_slingshot");
+    murabito_objs.push_back("murabito_firework");
+    murabito_objs.push_back("murabito_furniture14");
+    murabito_objs.push_back("murabito_stump");
+    murabito_objs.push_back("murabito_furniture09");
+    murabito_objs.push_back("murabito_shovel");
+    murabito_objs.push_back("murabito_furniture13");
+    murabito_objs.push_back("murabito_furniture11");
+    murabito_objs.push_back("murabito_furniture03");
+    murabito_objs.push_back("murabito_furniture08");
+    murabito_objs.push_back("murabito_clayrocket");
+    murabito_objs.push_back("murabito_balloon");
+    murabito_objs.push_back("murabito_furniture21");
+    murabito_objs.push_back("murabito_sprout");
+    murabito_objs.push_back("murabito_furniture19");
+    murabito_objs.push_back("murabito_furniture02");
+    murabito_objs.push_back("murabito_furniture01");
+    murabito_objs.push_back("murabito_butterflynet");
+    murabito_objs.push_back("murabito_furniture12");
+    murabito_objs.push_back("murabito_sprinkling");
+    murabito_objs.push_back("murabito_furniture");
+    murabito_objs.push_back("murabito_weeds");
+    murabito_objs.push_back("murabito_axe");
+    murabito_objs.push_back("murabito_furniture17");
+    murabito_objs.push_back("murabito_furniture23");
+    murabito_objs.push_back("murabito_wood");
+    murabito_objs.push_back("murabito_furniture04");
+    murabito_objs.push_back("murabito_house");
     murabito_objs.push_back("murabito_tree");
     murabito_objs.push_back("murabito_umbrella");
-    murabito_objs.push_back("murabito_weeds");
+    murabito_objs.push_back("murabito_turnip");
+    murabito_objs.push_back("murabito_bowlingball");
+    murabito_objs.push_back("murabito_seed");
+    murabito_objs.push_back("murabito_furniture22");
+    murabito_objs.push_back("murabito_sprinkling_water");
+
+    // Original
+    //murabito_objs.push_back("murabito");
+    //murabito_objs.push_back("murabito_balloon");
+    //murabito_objs.push_back("murabito_beetle");
+    //murabito_objs.push_back("murabito_bowling_ball");
+    //murabito_objs.push_back("murabito_bullet");
+    //murabito_objs.push_back("murabito_butterflynet");
+    //murabito_objs.push_back("murabito_clayrocket");
+    //murabito_objs.push_back("murabito_firework");
+    //murabito_objs.push_back("murabito_flowerpot");
+    //murabito_objs.push_back("murabito_furniture");
+    //murabito_objs.push_back("murabito_helmet");
+    //murabito_objs.push_back("murabito_house");
+    //murabito_objs.push_back("murabito_moneybag");
+    //murabito_objs.push_back("murabito_seed");
+    //murabito_objs.push_back("murabito_slingshot");
+    //murabito_objs.push_back("murabito_sprinkling_water");
+    //murabito_objs.push_back("murabito_sprout");
+    //murabito_objs.push_back("murabito_stump");
+    //murabito_objs.push_back("murabito_timmy");
+    //murabito_objs.push_back("murabito_tommy");
+    //murabito_objs.push_back("murabito_tomnook");
+    //murabito_objs.push_back("murabito_tree");
+    //murabito_objs.push_back("murabito_umbrella");
+    //murabito_objs.push_back("murabito_weeds");
     character_objects["murabito"] = murabito_objs;
 
     std::vector<std::string> nana_objs;
     nana_objs.push_back("nana");
+    nana_objs.push_back("nana_iceshot");
+    nana_objs.push_back("nana_rubber");
+    nana_objs.push_back("nana_iceberghit");
+    nana_objs.push_back("nana_whitebear");
+    nana_objs.push_back("nana_blizzard");
+    nana_objs.push_back("nana_iceberg");
+    nana_objs.push_back("nana_condor");
+    nana_objs.push_back("nana_ice");
+    nana_objs.push_back("nana_iceberg_wind");
     character_objects["nana"] = nana_objs;
 
     std::vector<std::string> ness_objs;
     ness_objs.push_back("ness");
     ness_objs.push_back("ness_paula");
-    ness_objs.push_back("ness_pk_fire");
-    ness_objs.push_back("ness_pk_flash");
-    ness_objs.push_back("ness_pk_starstorm");
-    ness_objs.push_back("ness_pk_thunder");
+    //ness_objs.push_back("ness_pk_fire");
+    //ness_objs.push_back("ness_pk_flash");
+    //ness_objs.push_back("ness_pk_starstorm");
+    //ness_objs.push_back("ness_pk_thunder");
+    ness_objs.push_back("ness_pkfire");
+    ness_objs.push_back("ness_pkflash");
+    ness_objs.push_back("ness_pkthunder");
+    ness_objs.push_back("ness_pkstarstorm");
     ness_objs.push_back("ness_poo");
     ness_objs.push_back("ness_yoyo");
-    ness_objs.push_back("ness_yoyo_head");
+    //ness_objs.push_back("ness_yoyo_head");
+    ness_objs.push_back("ness_yoyohead");
     character_objects["ness"] = ness_objs;
 
     std::vector<std::string> none_objs;
     none_objs.push_back("none");
     character_objects["none"] = none_objs;
 
+    std::vector<std::string> packun_objs;
+    packun_objs.push_back("packun");
+    packun_objs.push_back("packun_spikeball");
+    packun_objs.push_back("packun_mario");
+    packun_objs.push_back("packun_bosspackun");
+    packun_objs.push_back("packun_poisonbreath");
+    character_objects["packun"] = packun_objs;
+
     std::vector<std::string> pacman_objs;
     pacman_objs.push_back("pacman");
     pacman_objs.push_back("pacman_artisticpoint");
     pacman_objs.push_back("pacman_bigpacman");
+    pacman_objs.push_back("pacman_dot");
     pacman_objs.push_back("pacman_esa");
     pacman_objs.push_back("pacman_fairy");
     pacman_objs.push_back("pacman_firehydrant");
-    pacman_objs.push_back("pacman_firehydrant_water");
+    //pacman_objs.push_back("pacman_firehydrant_water");
+    pacman_objs.push_back("pacman_firehydrantwater");
     pacman_objs.push_back("pacman_trampoline");
     character_objects["pacman"] = pacman_objs;
 
@@ -1043,6 +1251,7 @@ void init_character_objects()
     peach_objs.push_back("peach_kassar");
     peach_objs.push_back("peach_kinopio");
     peach_objs.push_back("peach_kinopiospore");
+    peach_objs.push_back("peach_peachdaikon");
     character_objects["peach"] = peach_objs;
 
     std::vector<std::string> pfushigisou_objs;
@@ -1050,6 +1259,7 @@ void init_character_objects()
     pfushigisou_objs.push_back("pfushigisou_leafcutter");
     pfushigisou_objs.push_back("pfushigisou_seed");
     pfushigisou_objs.push_back("pfushigisou_vine");
+    pfushigisou_objs.push_back("pfushigisou_physics");
     character_objects["pfushigisou"] = pfushigisou_objs;
 
     std::vector<std::string> pichu_objs;
@@ -1072,6 +1282,9 @@ void init_character_objects()
     pikachu_objs.push_back("pikachu_monsterball");
     pikachu_objs.push_back("pikachu_specialupdummy");
     pikachu_objs.push_back("pikachu_vortex");
+    pikachu_objs.push_back("pikachu_thunderjolt2");
+    pikachu_objs.push_back("pikachu_thunder");
+    pikachu_objs.push_back("pikachu_thunderjolt");
     character_objects["pikachu"] = pikachu_objs;
 
     std::vector<std::string> pikmin_objs;
@@ -1081,6 +1294,14 @@ void init_character_objects()
     pikmin_objs.push_back("pikmin_win1");
     pikmin_objs.push_back("pikmin_win2");
     pikmin_objs.push_back("pikmin_win3");
+    pikmin_objs.push_back("pikmin_y");
+    pikmin_objs.push_back("pikmin_b");
+    pikmin_objs.push_back("pikmin_chain");
+    pikmin_objs.push_back("pikmin_chainreverse");
+    pikmin_objs.push_back("pikmin_v");
+    pikmin_objs.push_back("pikmin_w");
+    pikmin_objs.push_back("pikmin_pikmin");
+    pikmin_objs.push_back("pikmin_r");
     character_objects["pikmin"] = pikmin_objs;
 
     std::vector<std::string> pit_objs;
@@ -1093,6 +1314,10 @@ void init_character_objects()
     pit_objs.push_back("pit_chariot");
     pit_objs.push_back("pit_chariotsight");
     pit_objs.push_back("pit_horse");
+    pit_objs.push_back("pit_three");
+    pit_objs.push_back("pit_chargeshot");
+    pit_objs.push_back("pit_threebow");
+    pit_objs.push_back("pit_lightarrow");
     character_objects["pit"] = pit_objs;
 
     std::vector<std::string> pitb_objs;
@@ -1106,6 +1331,11 @@ void init_character_objects()
     plizardon_objs.push_back("plizardon_breath");
     plizardon_objs.push_back("plizardon_daimonji");
     plizardon_objs.push_back("plizardon_explosion");
+    plizardon_objs.push_back("plizardon_monsterball");
+    plizardon_objs.push_back("plizardon_rockstone");
+    plizardon_objs.push_back("plizardon_rock");
+    plizardon_objs.push_back("plizardon_rocka");
+    plizardon_objs.push_back("plizardon_lizardonm");
     character_objects["plizardon"] = plizardon_objs;
 
     std::vector<std::string> popo_objs;
@@ -1113,11 +1343,13 @@ void init_character_objects()
     popo_objs.push_back("popo_blizzard");
     popo_objs.push_back("popo_condor");
     popo_objs.push_back("popo_iceberg");
-    popo_objs.push_back("popo_iceberg_hit");
+    //popo_objs.push_back("popo_iceberg_hit");
+    popo_objs.push_back("popo_iceberghit");
     popo_objs.push_back("popo_iceberg_wind");
     popo_objs.push_back("popo_iceshot");
     popo_objs.push_back("popo_rubber");
     popo_objs.push_back("popo_whitebear");
+    popo_objs.push_back("popo_ice");
     character_objects["popo"] = popo_objs;
 
     std::vector<std::string> ptrainer_objs;
@@ -1127,7 +1359,19 @@ void init_character_objects()
     ptrainer_objs.push_back("ptrainer_plizardon");
     ptrainer_objs.push_back("ptrainer_ptrainer");
     ptrainer_objs.push_back("ptrainer_pzenigame");
+    ptrainer_objs.push_back("ptrainer_ptrainer_low");
+    ptrainer_objs.push_back("ptrainer_final");
     character_objects["ptrainer"] = ptrainer_objs;
+
+    std::vector<std::string> ptrainer_low_objs;
+    ptrainer_low_objs.push_back("ptrainer_low");
+    ptrainer_low_objs.push_back("ptrainer_low_final");
+    ptrainer_low_objs.push_back("ptrainer_low_ptrainer");
+    ptrainer_low_objs.push_back("ptrainer_low_pfushigisou");
+    ptrainer_low_objs.push_back("ptrainer_low_mball");
+    ptrainer_low_objs.push_back("ptrainer_low_plizardon");
+    ptrainer_low_objs.push_back("ptrainer_low_pzenigame");
+    character_objects["ptrainer_low"] = ptrainer_low_objs;
 
     std::vector<std::string> purin_objs;
     purin_objs.push_back("purin");
@@ -1138,6 +1382,7 @@ void init_character_objects()
     std::vector<std::string> pzenigame_objs;
     pzenigame_objs.push_back("pzenigame");
     pzenigame_objs.push_back("pzenigame_water");
+    pzenigame_objs.push_back("pzenigame_waterfall");
     character_objects["pzenigame"] = pzenigame_objs;
 
     std::vector<std::string> random_objs;
@@ -1176,9 +1421,11 @@ void init_character_objects()
     std::vector<std::string> robot_objs;
     robot_objs.push_back("robot");
     robot_objs.push_back("robot_beam");
-    robot_objs.push_back("robot_final_beam");
+    //robot_objs.push_back("robot_final_beam");
+    robot_objs.push_back("robot_finalbeam");
     robot_objs.push_back("robot_gyro");
-    robot_objs.push_back("robot_gyro_holder");
+    //robot_objs.push_back("robot_gyro_holder");
+    robot_objs.push_back("robot_gyroholder");
     robot_objs.push_back("robot_hominglaser");
     robot_objs.push_back("robot_homingtarget");
     robot_objs.push_back("robot_hugebeam");
@@ -1205,6 +1452,19 @@ void init_character_objects()
     rockman_objs.push_back("rockman_rockmanx");
     rockman_objs.push_back("rockman_rushcoil");
     rockman_objs.push_back("rockman_shootingstarrockman");
+    rockman_objs.push_back("rockman_tornadohold");
+    rockman_objs.push_back("rockman_hyperbomb");
+    rockman_objs.push_back("rockman_lsparkshock");
+    rockman_objs.push_back("rockman_dangerwrap");
+    rockman_objs.push_back("rockman_skullbarrier");
+    rockman_objs.push_back("rockman_rsparkshock");
+    rockman_objs.push_back("rockman_shadowblade");
+    rockman_objs.push_back("rockman_beat");
+    rockman_objs.push_back("rockman_plantbarrier");
+    rockman_objs.push_back("rockman_rhardknuckle");
+    rockman_objs.push_back("rockman_finalbg");
+    rockman_objs.push_back("rockman_lhardknuckle");
+    rockman_objs.push_back("rockman_metalblade");
     character_objects["rockman"] = rockman_objs;
 
     std::vector<std::string> rosetta_objs;
@@ -1233,6 +1493,15 @@ void init_character_objects()
     samus_objs.push_back("samus");
     samus_objs.push_back("samus_bomb");
     samus_objs.push_back("samus_cshot");
+    samus_objs.push_back("samus_gbeam");
+    samus_objs.push_back("samus_gun");
+    samus_objs.push_back("samus_laser");
+    samus_objs.push_back("samus_laser2");
+    samus_objs.push_back("samus_missile");
+    samus_objs.push_back("samus_supermissile");
+    samus_objs.push_back("samus_transportation");
+    samus_objs.push_back("samus_gbeamreverse");
+
     samus_objs.push_back("samusd");
     samus_objs.push_back("samusd_bomb");
     samus_objs.push_back("samusd_bunshin");
@@ -1244,13 +1513,6 @@ void init_character_objects()
     samus_objs.push_back("samusd_missile");
     samus_objs.push_back("samusd_supermissile");
     samus_objs.push_back("samusd_transportation");
-    samus_objs.push_back("samus_gbeam");
-    samus_objs.push_back("samus_gun");
-    samus_objs.push_back("samus_laser");
-    samus_objs.push_back("samus_laser2");
-    samus_objs.push_back("samus_missile");
-    samus_objs.push_back("samus_supermissile");
-    samus_objs.push_back("samus_transportation");
     character_objects["samus"] = samus_objs;
 
     std::vector<std::string> samusd_objs;
@@ -1265,6 +1527,7 @@ void init_character_objects()
     samusd_objs.push_back("samusd_missile");
     samusd_objs.push_back("samusd_supermissile");
     samusd_objs.push_back("samusd_transportation");
+    samusd_objs.push_back("samusd_gbeamreverse");
     character_objects["samusd"] = samusd_objs;
 
     std::vector<std::string> sheik_objs;
@@ -1273,6 +1536,9 @@ void init_character_objects()
     sheik_objs.push_back("sheik_knife");
     sheik_objs.push_back("sheik_needle");
     sheik_objs.push_back("sheik_needlehave");
+    sheik_objs.push_back("sheik_lightingbowarrow");
+    sheik_objs.push_back("sheik_ironwire");
+    sheik_objs.push_back("sheik_lightingbow");
     character_objects["sheik"] = sheik_objs;
 
     std::vector<std::string> shizue_objs;
@@ -1307,6 +1573,7 @@ void init_character_objects()
     shulk_objs.push_back("shulk_dunban");
     shulk_objs.push_back("shulk_fiora");
     shulk_objs.push_back("shulk_riki");
+    shulk_objs.push_back("shulk_finalbg");
     character_objects["shulk"] = shulk_objs;
 
     std::vector<std::string> simon_objs;
@@ -1325,20 +1592,24 @@ void init_character_objects()
     std::vector<std::string> snake_objs;
     snake_objs.push_back("snake");
     snake_objs.push_back("snake_c4");
-    snake_objs.push_back("snake_c4_switch");
+    //snake_objs.push_back("snake_c4_switch");
+    snake_objs.push_back("snake_c4switch");
     snake_objs.push_back("snake_cypher");
-    snake_objs.push_back("snake_flare_grenades");
+    //snake_objs.push_back("snake_flare_grenades");
+    snake_objs.push_back("snake_flaregrenades");
     snake_objs.push_back("snake_grenade");
     snake_objs.push_back("snake_lock_on_cursor");
     snake_objs.push_back("snake_lock_on_cursor_ready");
     snake_objs.push_back("snake_missile");
     snake_objs.push_back("snake_nikita");
-    snake_objs.push_back("snake_nikita_missile");
+    //snake_objs.push_back("snake_nikita_missile");
+    snake_objs.push_back("snake_nikitamissile");
     snake_objs.push_back("snake_reticle");
     snake_objs.push_back("snake_reticle_cursor");
     snake_objs.push_back("snake_rpg7");
     snake_objs.push_back("snake_trenchmortar");
-    snake_objs.push_back("snake_trenchmortar_bullet");
+    //snake_objs.push_back("snake_trenchmortar_bullet");
+    snake_objs.push_back("snake_trenchmortarbullet");
     character_objects["snake"] = snake_objs;
 
     std::vector<std::string> sonic_objs;
@@ -1359,6 +1630,7 @@ void init_character_objects()
     szerosuit_objs.push_back("szerosuit_samusp");
     szerosuit_objs.push_back("szerosuit_whip");
     szerosuit_objs.push_back("szerosuit_whip2");
+    szerosuit_objs.push_back("szerosuit_samusfinal");
     character_objects["szerosuit"] = szerosuit_objs;
 
     std::vector<std::string> toonlink_objs;
@@ -1368,9 +1640,12 @@ void init_character_objects()
     toonlink_objs.push_back("toonlink_bowarrow");
     toonlink_objs.push_back("toonlink_fairy");
     toonlink_objs.push_back("toonlink_hookshot");
-    toonlink_objs.push_back("toonlink_hookshot_hand");
+    //toonlink_objs.push_back("toonlink_hookshot_hand");
+    toonlink_objs.push_back("toonlink_hookshothand");
     toonlink_objs.push_back("toonlink_pig");
     toonlink_objs.push_back("toonlink_takt");
+    toonlink_objs.push_back("toonlink_hookshotall");
+    toonlink_objs.push_back("toonlink_hookshothead");
     character_objects["toonlink"] = toonlink_objs;
 
     std::vector<std::string> wario_objs;
@@ -1378,6 +1653,7 @@ void init_character_objects()
     wario_objs.push_back("wario_garlic");
     wario_objs.push_back("wario_wariobike");
     wario_objs.push_back("wario_warioman");
+    wario_objs.push_back("wario_dummy_fighter");
     character_objects["wario"] = wario_objs;
 
     std::vector<std::string> wiifit_objs;
@@ -1400,12 +1676,28 @@ void init_character_objects()
     wolf_objs.push_back("wolf_wolfen");
     character_objects["wolf"] = wolf_objs;
 
+    // Not sure if all the yoshimobXX, etc. are needed
     std::vector<std::string> yoshi_objs;
     yoshi_objs.push_back("yoshi");
-    yoshi_objs.push_back("yoshi_star");
-    yoshi_objs.push_back("yoshi_tamago");
+    yoshi_objs.push_back("yoshi_yoshimob00");
     yoshi_objs.push_back("yoshi_yoshibg01");
+    yoshi_objs.push_back("yoshi_yoshibg02");
+    yoshi_objs.push_back("yoshi_yoshimob01");
+    yoshi_objs.push_back("yoshi_yoshimob02");
+    yoshi_objs.push_back("yoshi_yoshibg06");
+    yoshi_objs.push_back("yoshi_star");
+    yoshi_objs.push_back("yoshi_yoshimob04");
+    yoshi_objs.push_back("yoshi_yoshimob06");
+    yoshi_objs.push_back("yoshi_yoshibg03");
+    yoshi_objs.push_back("yoshi_yoshibg08");
     yoshi_objs.push_back("yoshi_yoshimob");
+    yoshi_objs.push_back("yoshi_yoshibg04");
+    yoshi_objs.push_back("yoshi_tamago");
+    yoshi_objs.push_back("yoshi_yoshibg05");
+    yoshi_objs.push_back("yoshi_wing");
+    yoshi_objs.push_back("yoshi_yoshimob05");
+    yoshi_objs.push_back("yoshi_yoshimob03");
+    yoshi_objs.push_back("yoshi_yoshibg07");
     character_objects["yoshi"] = yoshi_objs;
 
     std::vector<std::string> younglink_objs;
@@ -1414,9 +1706,12 @@ void init_character_objects()
     younglink_objs.push_back("younglink_bow");
     younglink_objs.push_back("younglink_bowarrow");
     younglink_objs.push_back("younglink_hookshot");
-    younglink_objs.push_back("younglink_hookshot_hand");
+    //younglink_objs.push_back("younglink_hookshot_hand");
+    younglink_objs.push_back("younglink_hookshothand");
     younglink_objs.push_back("younglink_milk");
     younglink_objs.push_back("younglink_navy");
+    younglink_objs.push_back("younglink_hookshotall");
+    younglink_objs.push_back("younglink_hookshothead");
     character_objects["younglink"] = younglink_objs;
 
     std::vector<std::string> zelda_objs;
@@ -1431,20 +1726,20 @@ void init_character_objects()
     zenigame_objs.push_back("zenigame");
     character_objects["zenigame"] = zenigame_objs;
     
-    std::vector<std::string> common_objs;
+    //std::vector<std::string> common_objs;
     // common_objs.push_back("common");
-    common_objs.push_back("fighter_common");
+    //common_objs.push_back("fighter_common");
     // common_objs.push_back("base");
-    character_objects["common"] = common_objs;
+    //character_objects["common"] = common_objs;
 }
 
 std::vector<int> const_value_table_values;
 std::vector<std::string> const_value_table;
 
 void init_const_value_table() {
-	// Load in const value table
+    // Load in const value table
     std::ifstream const_value_lines("const_value_table_with_values_700.txt");
-	std::string line;
+    std::string line;
     size_t i = 0;
     while (std::getline(const_value_lines, line))
     {
