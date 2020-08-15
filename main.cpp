@@ -20,6 +20,7 @@
 #include "clustermanager.h"
 #include "eh.h"
 #include "lua_transpile.h"
+#include <useful.h>
 
 #define MAX_CLUSTERS_ACTIVE 100
 
@@ -419,8 +420,8 @@ int main(int argc, char **argv, char **envp)
     logmask_unset(LOGMASK_DEBUG | LOGMASK_INFO);
     // logmask_set(LOGMASK_VERBOSE);
 
-    uint32_t babe_indices[0x43ec];
-    for (size_t i = 0; i < 0x43ec; i++) {
+    uint32_t babe_indices[CONST_VALUE_TABLE_SIZE];
+    for (size_t i = 0; i < CONST_VALUE_TABLE_SIZE; i++) {
         babe_indices[i] = i | 0xBABE0000;
     }
 

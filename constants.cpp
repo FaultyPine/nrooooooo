@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <filesystem>
+#include <useful.h>
 
 std::set<uint32_t> last_crcs;
 std::map<uint64_t, std::string> unhash;
@@ -1738,12 +1739,12 @@ std::vector<std::string> const_value_table;
 
 void init_const_value_table() {
     // Load in const value table
-    std::ifstream const_value_lines("const_value_table_with_values_700.txt");
+    std::ifstream const_value_lines("const_value_table_with_values_810.csv");
     std::string line;
     size_t i = 0;
     while (std::getline(const_value_lines, line))
     {
-        if (const_value_table_values.size() > 0x43ec) {
+        if (const_value_table_values.size() > CONST_VALUE_TABLE_SIZE) {
             break;
         }
         std::stringstream ss(line);

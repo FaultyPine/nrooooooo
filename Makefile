@@ -4,11 +4,11 @@ OBJS = $(foreach dir,$(SRC_DIR),$(subst .c,.o,$(wildcard $(dir)/*.c))) $(foreach
 
 # Compiler Settings
 OUTPUT = nrooooooo
-CXXFLAGS = -Wall -g -I. -std=c++17 -fsanitize=address
+CXXFLAGS = -Wall -g -I. -std=c++17 -fsanitize=address -I /path/to/unicorn
 CFLAGS = -I. -std=gnu11 -fsanitize=address
 # If this fails, use "-pthread" instead of "-lpthread"
 #LIBS = -lasan -lpthread -lunicorn -lstdc++fs
-LDFLAGS = -L/path/to/your/unicorn/directory
+LDFLAGS = -L/path/to/unicorn/build
 LIBS = -lasan -pthread -lunicorn -lstdc++fs # -liberty
 CC = gcc
 # Note: requires a g++ that supports the -std=c++17 flag, if g++ in your path doesn't support
